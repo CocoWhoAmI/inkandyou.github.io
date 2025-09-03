@@ -1,0 +1,861 @@
+/* Ink & You website main stylesheet */
+
+/* Colour palette as CSS variables for easy reuse */
+:root {
+  --bg-color: #e8d8c4;
+  --accent1: #ba6d38; /* warm copper */
+  --accent2: #6a704c; /* olive green */
+  --accent3: #562902; /* dark brown */
+  --light-panel: #f9f3e9; /* light panel background */
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--accent3);
+  line-height: 1.6;
+  /* Make base font slightly larger for better readability */
+  font-size: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent3);
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--accent3);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent1);
+}
+
+/* Header */
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--bg-color);
+  /* Header is static so it scrolls away with the page */
+  position: static;
+  box-shadow: none;
+  border: 1px solid black
+}
+
+header .logo img {
+  /* Increase logo height for better visibility. Height increased to 100px to
+     make the logo more prominent in the header. */
+  height: 80px;
+  width: 140px;
+  object-fit: contain;
+}
+
+/*
+ * Responsive language dropdown
+ *
+ * For small screens we provide a compact language picker using a
+ * <details> element. The default horizontal list of language links
+ * (div.lang) is hidden on narrow viewports and replaced with this
+ * dropdown. The dropdown summary acts as a button and displays the
+ * currently active language. When opened, a simple list of links
+ * appears. We style the summary and list to match our palette.
+ */
+.lang-dropdown {
+  display: none;
+  position: relative;
+  font-weight: 600;
+  color: var(--accent3);
+}
+
+.lang-dropdown summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--accent2);
+  border-radius: 4px;
+  background-color: var(--light-panel);
+  color: var(--accent3);
+}
+.lang-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+.lang-dropdown[open] summary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.lang-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--accent2);
+  border-top: none;
+  background-color: var(--light-panel);
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 5;
+}
+.lang-dropdown ul li a {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  color: var(--accent3);
+}
+.lang-dropdown ul li a:hover {
+  background-color: var(--accent2);
+  color: #ffffff;
+}
+
+nav.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+nav.nav a {
+  font-weight: 600;
+  /* Increase navigation font size for better readability */
+  font-size: 1.05rem;
+  position: relative;
+  padding: 0.2rem 0;
+}
+
+nav.nav a::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 0%;
+  background-color: var(--accent1);
+  transition: width 0.3s ease;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+}
+
+nav.nav a:hover::after {
+  width: 100%;
+}
+
+.lang {
+  font-weight: 600;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  /* Increase spacing between language links and prevent wrapping */
+  gap: 0.4rem;
+  white-space: nowrap;
+  flex-wrap: nowrap;
+}
+
+.lang a {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
+.lang a.active {
+  color: var(--accent1);
+  font-weight: 700;
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  /* Use a warm, cosy reading background for the slogan area */
+  background-image: url('images/hero_cozy.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--accent3);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Soften the overlay on the hero background */
+  background-color: rgba(232, 216, 196, 0.7);
+  z-index: 0;
+}
+
+.hero .hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  /* Add spacing to separate content from next sections on smaller screens */
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  /* Slightly larger heading for hero */
+  font-size: 3.2rem;
+  margin-bottom: 1rem;
+  color: var(--accent3);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  color: var(--accent3);
+}
+
+.btn-order,
+.btn-secondary {
+  display: inline-block;
+  padding: 0.75rem 1.6rem;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-order {
+  background-color: var(--accent1);
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.btn-order:hover {
+  background-color: var(--accent3);
+  color: #ffffff;
+}
+
+.btn-secondary {
+  border: 1px solid var(--accent1);
+  color: var(--accent3);
+  background-color: transparent;
+  font-size: 1rem;
+}
+
+.btn-secondary:hover {
+  background-color: var(--accent1);
+  color: #ffffff;
+}
+
+/* Editions section */
+.editions {
+  padding: 4rem 2rem;
+  background-color: var(--bg-color);
+}
+
+.editions h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--accent3);
+}
+
+.edition-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.edition-card {
+  background-color: var(--light-panel);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.edition-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.edition-card h3 {
+  font-size: 1.6rem;
+  margin: 1rem;
+  color: var(--accent3);
+}
+
+.edition-card ul {
+  list-style: none;
+  padding: 0 1rem;
+  margin: 0 0 1rem 0;
+  color: var(--accent3);
+  flex-grow: 1;
+}
+
+.edition-card ul li {
+  margin-bottom: 0.4rem;
+  padding-left: 1rem;
+  position: relative;
+  font-size: 1rem;
+}
+
+.edition-card ul li::before {
+  content: "\2022"; /* bullet point */
+  position: absolute;
+  left: 0;
+  color: var(--accent1);
+}
+
+.edition-card .price {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent1);
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.edition-card .btn-secondary {
+  margin-left: 1rem;
+  margin-bottom: 1.5rem;
+  width: fit-content;
+  font-size: 0.95rem;
+}
+
+/* How it works section */
+.how-it-works {
+  padding: 4rem 2rem;
+  background-color: #f7eee3;
+}
+
+.how-it-works h2 {
+  text-align: center;
+  font-size: 2.7rem;
+  margin-bottom: 3rem;
+  color: var(--accent3);
+}
+
+.steps {
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.steps li {
+  list-style: none;
+  background-color: var(--light-panel);
+  padding: 2rem 1.5rem 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  background-color: var(--accent1);
+  color: #ffffff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.steps h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent3);
+}
+
+.steps p {
+  font-size: 1rem;
+  color: var(--accent3);
+}
+
+/* FAQ page styles */
+.faq {
+  padding: 4rem 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.faq h2 {
+  text-align: center;
+  font-size: 2.7rem;
+  margin-bottom: 2rem;
+  color: var(--accent3);
+}
+
+.question {
+  margin-bottom: 1.5rem;
+}
+
+.question h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  color: var(--accent3);
+}
+
+.question p {
+  font-size: 1.1rem;
+  color: var(--accent3);
+  background-color: var(--light-panel);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+}
+
+/* Contact page styles */
+.contact-section {
+  /* Use a warm book-themed background for contact page */
+  background-image: url('images/contact_bg.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  /* Use flexbox to vertically centre the contact content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  color: #f7eee3;
+  /* Fill most of the viewport height to reduce beige space on contact pages */
+  min-height: 86vh;
+}
+
+.contact-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.contact-section .contact-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-section h2 {
+  font-size: 2.7rem;
+  margin-bottom: 1rem;
+  color: #f7eee3;
+}
+
+.contact-section p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #f7eee3;
+}
+
+.contact-section .btn-order {
+  background-color: var(--accent1);
+  color: #fff;
+  font-size: 1rem;
+}
+
+.contact-section .btn-order:hover {
+  background-color: var(--accent2);
+  color: #fff;
+}
+
+/* Instagram button styling */
+.btn-instagram {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: 30px;
+  background-color: var(--accent2);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.btn-instagram:hover {
+  background-color: var(--accent1);
+}
+
+/* Gallery / slider section */
+.gallery {
+  padding: 4rem 2rem;
+  /* Different background colour than the editions section */
+  background-color: #f3e7d6;
+}
+
+.gallery h2 {
+  text-align: center;
+  font-size: 2.7rem;
+  margin-bottom: 2rem;
+  color: var(--accent3);
+}
+
+/*
+ * Book cover carousel
+ *
+ * This carousel is inspired by the Bootstrap carousel pattern but uses
+ * only HTML and CSS. Each slide is absolutely positioned and only
+ * becomes visible when its corresponding radio input is checked. The
+ * controls are labels positioned over the slides that switch the
+ * selected radio input. The carousel has a vertical orientation (height
+ * greater than width) to mimic the proportions of a book cover.
+ */
+.cover-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  height: 700px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cover-carousel input[type="radio"] {
+  display: none;
+}
+
+.cover-carousel .slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cover-carousel .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Display the appropriate slide when its radio is checked */
+#c1:checked ~ .slides .s1 { opacity: 1; }
+#c2:checked ~ .slides .s2 { opacity: 1; }
+#c3:checked ~ .slides .s3 { opacity: 1; }
+#c4:checked ~ .slides .s4 { opacity: 1; }
+#c5:checked ~ .slides .s5 { opacity: 1; }
+#c6:checked ~ .slides .s6 { opacity: 1; }
+#c7:checked ~ .slides .s7 { opacity: 1; }
+#c8:checked ~ .slides .s8 { opacity: 1; }
+#c9:checked ~ .slides .s9 { opacity: 1; }
+#c10:checked ~ .slides .s10 { opacity: 1; }
+
+/* Navigation arrows */
+.cover-carousel .slide label {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff;
+  font-size: 2rem;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.cover-carousel .slide label.prev { left: 10px; }
+.cover-carousel .slide label.next { right: 10px; }
+
+.cover-carousel .slide label:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Dot indicators */
+.cover-carousel .dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.cover-carousel .dots label {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--accent2);
+  opacity: 0.5;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+#c1:checked ~ .dots label[for="c1"],
+#c2:checked ~ .dots label[for="c2"],
+#c3:checked ~ .dots label[for="c3"],
+#c4:checked ~ .dots label[for="c4"],
+#c5:checked ~ .dots label[for="c5"],
+#c6:checked ~ .dots label[for="c6"],
+#c7:checked ~ .dots label[for="c7"],
+#c8:checked ~ .dots label[for="c8"],
+#c9:checked ~ .dots label[for="c9"],
+#c10:checked ~ .dots label[for="c10"] {
+  opacity: 1;
+  background-color: var(--accent1);
+}
+
+@media (max-width: 768px) {
+  .cover-carousel {
+    max-width: 90%;
+    height: 450px;
+  }
+  .cover-carousel .slide label {
+    font-size: 1.5rem;
+    padding: 0.3rem 0.6rem;
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  /* Adjust language menu font size on small screens */
+  .lang {
+    display: none; /* Hide the horizontal language list on small screens */
+  }
+  .lang-dropdown {
+    display: block; /* Show dropdown on small screens */
+    font-size: 0.9rem;
+    margin-left: 1rem;
+  }
+  nav.nav a {
+    font-size: 0.9rem; /* Slightly smaller nav font for phone */
+  }
+  nav.nav {
+    gap: 1rem; /* Reduce gap between nav items */
+  }
+}
+
+/* Slider container uses absolute positioned images with fade animation */
+/* Remove old slider styles (no longer used) */
+
+/* About section */
+.about {
+  padding: 4rem 2rem;
+  background-color: #f7eee3;
+  text-align: center;
+}
+.about h2 {
+  font-size: 2.7rem;
+  margin-bottom: 1rem;
+  color: var(--accent3);
+}
+.about p {
+  font-size: 1.1rem;
+  max-width: 900px;
+  margin: 0 auto 1rem auto;
+  color: var(--accent3);
+  line-height: 1.6;
+}
+
+/* Carousel section */
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carousel input {
+  display: none;
+}
+
+.carousel .slides .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Ensure images fill the slide wrapper */
+.carousel .slides .slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Show corresponding slide when radio is checked */
+#slide1:checked ~ .slides .slide1 { opacity: 1; }
+#slide2:checked ~ .slides .slide2 { opacity: 1; }
+#slide3:checked ~ .slides .slide3 { opacity: 1; }
+#slide4:checked ~ .slides .slide4 { opacity: 1; }
+#slide5:checked ~ .slides .slide5 { opacity: 1; }
+#slide6:checked ~ .slides .slide6 { opacity: 1; }
+#slide7:checked ~ .slides .slide7 { opacity: 1; }
+#slide8:checked ~ .slides .slide8 { opacity: 1; }
+#slide9:checked ~ .slides .slide9 { opacity: 1; }
+#slide10:checked ~ .slides .slide10 { opacity: 1; }
+
+.carousel .dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.carousel .dots label {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--accent2);
+  opacity: 0.4;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: opacity 0.3s, background-color 0.3s;
+}
+
+#slide1:checked ~ .dots label[for="slide1"],
+#slide2:checked ~ .dots label[for="slide2"],
+#slide3:checked ~ .dots label[for="slide3"],
+#slide4:checked ~ .dots label[for="slide4"],
+#slide5:checked ~ .dots label[for="slide5"],
+#slide6:checked ~ .dots label[for="slide6"],
+#slide7:checked ~ .dots label[for="slide7"],
+#slide8:checked ~ .dots label[for="slide8"],
+#slide9:checked ~ .dots label[for="slide9"],
+#slide10:checked ~ .dots label[for="slide10"] {
+  opacity: 1;
+  background-color: var(--accent1);
+}
+
+@media (max-width: 768px) {
+  .carousel {
+    height: 350px;
+  }
+}
+
+/* Carousel arrow controls */
+.carousel .prev-next {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.carousel .prev-next label {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.carousel .prev-next label.prev {
+  left: 10px;
+}
+
+.carousel .prev-next label.next {
+  right: 10px;
+}
+
+/* Show appropriate arrows depending on which radio is checked */
+#slide1:checked ~ .prev-next .prev1,
+#slide1:checked ~ .prev-next .next1 { display: block; }
+#slide2:checked ~ .prev-next .prev2,
+#slide2:checked ~ .prev-next .next2 { display: block; }
+#slide3:checked ~ .prev-next .prev3,
+#slide3:checked ~ .prev-next .next3 { display: block; }
+#slide4:checked ~ .prev-next .prev4,
+#slide4:checked ~ .prev-next .next4 { display: block; }
+#slide5:checked ~ .prev-next .prev5,
+#slide5:checked ~ .prev-next .next5 { display: block; }
+#slide6:checked ~ .prev-next .prev6,
+#slide6:checked ~ .prev-next .next6 { display: block; }
+#slide7:checked ~ .prev-next .prev7,
+#slide7:checked ~ .prev-next .next7 { display: block; }
+#slide8:checked ~ .prev-next .prev8,
+#slide8:checked ~ .prev-next .next8 { display: block; }
+#slide9:checked ~ .prev-next .prev9,
+#slide9:checked ~ .prev-next .next9 { display: block; }
+#slide10:checked ~ .prev-next .prev10,
+#slide10:checked ~ .prev-next .next10 { display: block; }
+
+/* Footer */
+footer {
+  background-color: var(--accent3);
+  color: var(--bg-color);
+  padding: 2rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  /* Push footer to bottom */
+  margin-top: auto;
+}
+
+/* Responsive typography adjustments */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.4rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .edition-card img {
+    height: 200px;
+  }
+  .steps li::before {
+    top: -15px;
+    left: -15px;
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  /* Adjust language menu font size on small screens */
+  .lang {
+    font-size: 0.9rem;
+  }
+}
